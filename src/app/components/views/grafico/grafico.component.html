@@ -1,0 +1,7 @@
+<mat-card>
+  <div id="reportsContainer" class="reports-container" #containerFrameReport>
+    <iframe *ngIf="panelInfos && panelInfos.publico" class="responsive-iframe" width="800" height="100%" [src]="panelInfos.url | safe" frameborder="0"></iframe>
+  </div>
+</mat-card>
+
+

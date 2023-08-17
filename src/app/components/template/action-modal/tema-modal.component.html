@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>{{ dataModal.modalTitle }}</h1>
+<mat-dialog-content>
+
+  <div *ngIf="dataModal.action === 'add' || dataModal.action === 'update'"><!-- adicionar tema -->
+    <form [formGroup]="temaForm">
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Nome do Tema</mat-label>
+          <input formControlName="nome" matInput placeholder="Ex: Meu Tema">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="inline">
+          <mat-label>Ativo</mat-label>
+          <mat-select formControlName="ativo" [ngModel]="true">
+            <mat-option [value]="true">Sim</mat-option>
+            <mat-option [value]="false">Não</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="inline">
+          <mat-label>Modulo</mat-label>
+          <mat-select formControlName="modulo">
+            <mat-option *ngFor="let modulo of listaModulos" [value]="modulo.id">{{ modulo.nome }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </div>
+
+  <div *ngIf="dataModal.action === 'delete'"><!-- deletar tema -->
+    Tem certeza que deseja excluir o tema <b>{{ dataModal.row.nome }}</b>?
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions *ngIf="dataModal.action === 'add' || dataModal.action === 'update'">
+  <button mat-flat-button mat-dialog-close="close" class="danger-bt">Cancelar</button>
+  <button mat-flat-button (click)="setTema()" class="primary-bt">Salvar</button>
+</mat-dialog-actions>
+<mat-dialog-actions *ngIf="dataModal.action === 'delete'">
+  <button mat-flat-button mat-dialog-close="close" class="blue-bt">Voltar</button>
+  <button mat-flat-button (click)="setTema()" class="danger-bt">Excluir</button>
+</mat-dialog-actions>

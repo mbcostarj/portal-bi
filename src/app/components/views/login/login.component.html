@@ -1,0 +1,21 @@
+<div class="content-component content-component-login" id="login-form">
+  <div class="login-wrapper">
+    <mat-card class="box">
+      <mat-card-header class="header-card">
+        <mat-card-title>{{ title }}</mat-card-title>
+        <mat-card-subtitle>{{ description }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+      <form class="login-form" [formGroup]="loginForm" (ngSubmit)="submitForm()" novalidate>
+        <mat-form-field class="login-form-input" appearance="outline">
+          <input matInput placeholder="Usuário" formControlName="user">
+        </mat-form-field>
+        <mat-form-field class="login-form-input" appearance="outline">
+          <input matInput placeholder="Senha" type="password" formControlName="pass">
+        </mat-form-field>
+        <button mat-raised-button class="btn-block">Entrar</button>
+      </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

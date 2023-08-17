@@ -1,0 +1,34 @@
+::ng-deep {
+  app-grafico{
+    width:100%;
+  }
+  .reports-container{
+    height:80vh;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mat-card-header {
+    justify-content: space-between;
+    align-items: center;
+    .mat-card-title{
+      margin-bottom:0 !important;
+    }
+  }
+}
+
+.favorite-panel{
+  position:absolute;
+  top:-40px;
+}

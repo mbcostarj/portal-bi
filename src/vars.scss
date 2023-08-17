@@ -1,0 +1,13 @@
+@use "sass:map";
+
+$default-colors: (
+  "gray": #C4C4C4,
+  "black": #333333,
+  "white": white,
+  "blue": #006CB6,
+  "side-blue": rgba(15,113,219, 0.8),
+  "head-blue": rgba(0,123,255),
+  "confirm": #1976D2,
+  "success": #73E943,
+  "danger": #F24636,
+);

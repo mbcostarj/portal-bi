@@ -1,0 +1,48 @@
+<mat-card class="home-card-container">
+    <mat-card-header>
+      <mat-card-title>Destaques</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row d-flex justify-content-start" *ngIf="highlightList && highlightList.length; else notContent">
+            <img *ngFor="let painel of highlightList"
+                [src]="painel.imagemPainel || imagePainelDefault" [alt]="painel.nome" [title]="painel.nome"
+                onerror="this.onerror=null; this.src='assets/images/power-bi.png'"
+                class="col-3 cursor-pointer mt-4"
+                (click)="setIds(
+                    painel.idPainel,
+                    painel.reportId,
+                    painel.workSpaceId,
+                    painel.publico,
+                    painel.url,
+                    painel.nome)"
+                routerLink="/grafico/{{ painel.nome }}"/>                    
+        </div>
+    </mat-card-content>
+</mat-card>
+<mat-card class="home-card-container">
+    <mat-card-header>
+      <mat-card-title>Favoritos</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row d-flex justify-content-start" *ngIf="favoriteList && favoriteList.length; else notContent">
+            <img *ngFor="let painel of favoriteList"
+                [src]="painel.imagemPainel || imagePainelDefault" [alt]="painel.nome" [title]="painel.nome"
+                onerror="this.onerror=null; this.src='assets/images/power-bi.png'"
+                class="col-3 cursor-pointer mt-4"
+                (click)="setIds(
+                    painel.idPainel,
+                    painel.reportId,
+                    painel.workSpaceId,
+                    painel.publico,
+                    painel.url,
+                    painel.nome)"
+                routerLink="/grafico/{{ painel.nome }}"/>                    
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<ng-template #notContent>
+    <h5 class="text-black-50 text-center m-3">
+        Não foram encontrados paineis
+    </h5>
+</ng-template>

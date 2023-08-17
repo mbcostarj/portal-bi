@@ -1,0 +1,9 @@
+{
+  "baseUrl": "https://localhost:5001/api/v1/paineis",
+
+  "urlSharedApi": "http://d-sistemas.test.org.br/TEST/pocshared/",
+
+  "secretKeyGAU": "12a6e744452-f6c9-443341f-899a-06fdcdsf5b66d6",
+
+  "secretKeyLogin": "Sd6EqQm4Ndgfhn6754678xtEAxt"
+}

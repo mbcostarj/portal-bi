@@ -1,0 +1,54 @@
+@import "../../../../vars.scss";
+
+.container-modulos{
+  table{
+    width:100%;
+  }
+
+  .add-container{
+    width:100%;
+    margin-bottom:15px;
+    text-align:right;
+
+    button{
+      background:map-get($default-colors,"success");
+      color:map-get($default-colors,"white");
+    }
+  }
+
+}
+
+::ng-deep {
+  app-usuarios{
+    width:100%;
+
+    .search{
+      width:100%;
+      max-width:500px;
+      mat-form-field{
+        width:100%;
+      }
+    }
+  }
+}
+
+.mat-column-action{
+  text-align: right;
+  justify-content: flex-end;
+
+  a{
+    cursor:pointer;
+    &.edit{
+      color:#607D8B;
+    }
+    &.delete{
+      color:#F24636;
+    }
+  }
+
+}
+
+.filters{
+  display:flex;
+  align-items: center;
+}

@@ -1,0 +1,56 @@
+<button  class="toggle-nav-top" mat-icon-button *ngIf="!isLoginPage" (click)="sidenav.toggle()">
+  <mat-icon *ngIf="!sidenav.opened">
+    menu
+  </mat-icon>
+  <mat-icon *ngIf="sidenav.opened">
+    close
+  </mat-icon>
+</button>
+<mat-sidenav-container class="nav-container">
+  <mat-sidenav class="nav-container--sidenav" #sidenav="matSidenav">
+
+    <mat-nav-list *ngIf="!isLoginPage">
+
+      <div *ngFor="let modulos of painelList$">
+        <mat-list-item *ngIf="!modulos.temas" routerLink="#">{{ modulos.modulo }}</mat-list-item>
+        <mat-expansion-panel *ngIf="modulos.temas && modulos.tema != '' " [class.mat-elevation-z0]="true" dense>
+          <mat-expansion-panel-header class="header-modulos">
+              {{ modulos.nome }}
+          </mat-expansion-panel-header>
+          <mat-nav-list dense *ngFor="let temas of modulos.temas">
+              <a mat-list-item *ngIf="!temas.paineis" routerLink="#">{{ temas.nome }}</a>
+              <mat-expansion-panel *ngIf="temas.paineis" [class.mat-elevation-z0]="true" dense>
+                <mat-expansion-panel-header>
+                    {{ temas.nome }}
+                </mat-expansion-panel-header>
+                <mat-nav-list dense *ngFor="let painel of temas.paineis">
+                  <a mat-list-item (click)="setIds(painel.idPainel, painel.reportId, painel.workSpaceId, painel.publico, painel.url, painel.nome)" routerLink="/grafico/{{ painel.nome }}">{{ painel.nome }}</a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+          </mat-nav-list>
+        </mat-expansion-panel>
+      </div>
+
+      <mat-expansion-panel *ngIf="adminMenu" [class.mat-elevation-z0]="true" dense class="admin-menu">
+        <mat-expansion-panel-header>
+            Menu do Administrador
+        </mat-expansion-panel-header>
+        <mat-nav-list dense>
+          <a mat-list-item routerLink="/modulos" (click)="closeNav()">Gerenciar Módulos</a>
+          <a mat-list-item routerLink="/temas" (click)="closeNav()">Gerenciar Temas</a>
+          <a mat-list-item routerLink="/paineis" (click)="closeNav()">Gerenciar Paineis</a>
+          <a mat-list-item routerLink="/usuarios" (click)="closeNav()">Gerenciar Usuarios</a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+    </mat-nav-list><!-- *ngIf="!isLoginPage" -->
+
+
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content-container {{ containerClass }}" [ngClass]="isLoginPage?'login-container':'internal-content'">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,111 @@
+<h1 mat-dialog-title>{{ dataModal.modalTitle }}</h1>
+<form [formGroup]="painelForm">
+<mat-dialog-content>
+
+  <div *ngIf="dataModal.action === 'add' || dataModal.action === 'update'"><!-- adicionar painel -->
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nome do Painel</mat-label>
+      <input matInput formControlName="nome" placeholder="Ex: Meu Painel">
+      <span *ngIf="painelForm.controls['nome'].invalid && (painelForm.controls['nome'].dirty || painelForm.controls['nome'].touched)" class="error-alert">
+        <span *ngIf="painelForm.controls['nome'].errors.required">
+          Informe o nome
+        </span>
+      </span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inline">
+      <mat-label>Ativo</mat-label>
+      <mat-select formControlName="ativo" [ngModel]="true">
+        <mat-option [value]="true">Sim</mat-option>
+        <mat-option [value]="false">Não</mat-option>
+      </mat-select>
+      <span *ngIf="painelForm.controls['ativo'].invalid && (painelForm.controls['ativo'].dirty || painelForm.controls['ativo'].touched)" class="error-alert">
+        <span *ngIf="painelForm.controls['ativo'].errors.required">
+          Informe o status do painel
+        </span>
+      </span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inline">
+      <mat-label>Painel público</mat-label>
+      <mat-select formControlName="publico" [ngModel]="true">
+        <mat-option [value]="true">Sim</mat-option>
+        <mat-option [value]="false">Não</mat-option>
+      </mat-select>
+      <span *ngIf="painelForm.controls['publico'].invalid && (painelForm.controls['publico'].dirty || painelForm.controls['publico'].touched)" class="error-alert">
+        <span *ngIf="painelForm.controls['publico'].errors.required">
+          Informe se o painel é público
+        </span>
+      </span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inline">
+      <mat-label>Tema</mat-label>
+      <mat-select formControlName="idTema">
+        <mat-option *ngFor="let tema of listaTemas" [value]="tema.id">{{ tema.nome }} - {{ tema.modulo[0].nome }}</mat-option>
+      </mat-select>
+      <span *ngIf="painelForm.controls['idTema'].invalid && (painelForm.controls['idTema'].dirty || painelForm.controls['idTema'].touched)" class="error-alert">
+        <span *ngIf="painelForm.controls['idTema'].errors.required">
+          Informe o tema
+        </span>
+      </span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Url do Painel</mat-label>
+      <input matInput formControlName="url" placeholder="Ex: https://app.powerbi...">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>ReportID</mat-label>
+      <input matInput formControlName="reportID" placeholder="Ex: 58e6j8dc-f610..">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>workspaceID</mat-label>
+      <input matInput formControlName="workspaceID" placeholder="Ex: 58e6j8dc-f610..">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Data de fim para o destaque</mat-label>
+        <input matInput [matDatepicker]="fimDestaque"
+            formControlName="fimDestaque">
+        <mat-datepicker-toggle matSuffix [for]="fimDestaque">
+        </mat-datepicker-toggle>
+        <mat-datepicker #fimDestaque></mat-datepicker>
+    </mat-form-field>
+
+    <div class="d-flex flex-column align-items-start">
+      <mat-label>Imagem do painel</mat-label>
+      <div class="d-flex justify-content-start align-items-center">
+        <button class="mb-2 mt-2" type="button" mat-raised-button (click)="fileInput.click()">Escolha o arquivo</button>
+        <span class="file-name m-2 text-primary">
+          {{
+            this.painelForm.controls['imagemPainel'] ?
+            this.painelForm.controls['imagemPainel'].value?.name
+            :
+            ''
+          }}
+        </span>
+        <input hidden (change)="onFileSelected($event)" #fileInput type="file">
+      </div>
+      <img *ngIf="imagemPainelAtual" [src]="imagemPainelAtual"/>
+    </div>
+
+  </div>
+
+  <div *ngIf="dataModal.action === 'delete'"><!-- deletar tema -->
+    Tem certeza que deseja excluir o painel <b>{{ dataModal.elmName }}</b>?
+  </div>
+
+</mat-dialog-content>
+</form>
+<mat-dialog-actions *ngIf="dataModal.action === 'add' || dataModal.action === 'update'">
+  <button mat-flat-button mat-dialog-close="close" class="danger-bt">Cancelar</button>
+  <button mat-flat-button (click)="setPainel()" class="primary-bt">Salvar</button>
+</mat-dialog-actions>
+<mat-dialog-actions *ngIf="dataModal.action === 'delete'">
+  <button mat-flat-button mat-dialog-close="close" class="blue-bt">Voltar</button>
+  <button mat-flat-button (click)="setPainel()" class="danger-bt">Excluir</button>
+</mat-dialog-actions>

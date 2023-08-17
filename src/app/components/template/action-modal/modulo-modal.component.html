@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{ dataModal.modalTitle }}</h1>
+<form [formGroup]="moduloForm">
+
+  <mat-dialog-content>
+
+    <div *ngIf="dataModal.action === 'add' || dataModal.action === 'update'"><!-- adicionar módulo -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do Módulo</mat-label>
+        <input formControlName="nome" matInput placeholder="Ex: Meu Módulo">
+        <!--<span class="text-danger mat-caption" *ngIf="moduloForm.controls['nome'].dirty">{{ errorMesages.nome }}</span>-->
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="inline">
+        <mat-label>Ativo</mat-label>
+        <mat-select formControlName="ativo" [ngModel]="true">
+          <mat-option [value]="true">Sim</mat-option>
+          <mat-option [value]="false">Não</mat-option>
+        </mat-select>
+        <!-- <span class="text-danger mat-caption">{{ errorMesages.ativo }}</span> -->
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="dataModal.action === 'delete'"><!-- deletar módulo -->
+      Tem certeza que deseja excluir o módulo <b>{{ dataModal.moduloNome }}</b>?
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions *ngIf="dataModal.action === 'add' || dataModal.action === 'update'">
+    <button mat-flat-button mat-dialog-close="close" class="danger-bt">Cancelar</button>
+    <button mat-flat-button (click)="setModulo()" class="primary-bt">Salvar</button>
+  </mat-dialog-actions>
+  <mat-dialog-actions *ngIf="dataModal.action === 'delete'">
+    <button mat-flat-button mat-dialog-close="close" class="blue-bt">Voltar</button>
+    <button mat-flat-button (click)="setModulo()" class="danger-bt">Excluir</button>
+  </mat-dialog-actions>
+
+</form>
+

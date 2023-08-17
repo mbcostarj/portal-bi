@@ -1,0 +1,84 @@
+@import "../../../../vars.scss";
+
+
+.color-red{
+  color:map-get($default-colors,"danger");
+}
+.color-green {
+  color:map-get($default-colors,"success");
+}
+
+.mat-subheading-1{
+  font-size:12px;
+}
+
+.container-selects{
+  display:flex;
+  .permissions-panel{
+    width:50px;
+    margin:30px;
+    button{
+      margin-bottom:30px;
+    }
+  }
+
+  .paineis-disponiveis,
+  .paineis-selecionados{
+    width:100%;
+    max-width:350px;
+  }
+  .permissions-select{
+    height:150px;
+    width:100%;
+    max-width:350px;
+    margin-right:30px;
+    padding:15px;
+  }
+
+}
+
+::ng-deep mat-form-field{
+  display:block !important;
+
+  &.inline{
+    display:inline-block !important;
+    margin-right:30px;
+  }
+/*
+  &.input-inline2{
+    select{
+
+    }
+  }
+*/
+}
+.danger-bt{
+  background-color:map-get($default-colors,"danger");
+  color:map-get($default-colors,"white");
+}
+.primary-bt{
+  background-color:map-get($default-colors,"success");
+  color:map-get($default-colors,"white");
+}
+.blue-bt{
+  background-color:map-get($default-colors,"blue");
+  color:map-get($default-colors,"white");
+}
+
+.error-alert{
+  color:map-get($default-colors,"danger");
+  font-size:13px;
+  font-style: italic;
+  padding:0 0 15px 0 !important;
+  margin:0 !important;
+}
+.mat-form-field-wrapper{
+  padding-bottom:0 !important;
+}
+
+.sucesso {
+  p{
+    font-size:15px;
+    color:map-get($default-colors,"success");
+  }
+}

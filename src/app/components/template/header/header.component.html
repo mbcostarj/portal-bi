@@ -1,0 +1,32 @@
+<mat-toolbar class="header" [ngClass]="isLoginPage?'login-header':'internal-header'">
+  <mat-toolbar-row>
+    <a class="home-link" routerLink="/home"><img src="{{ imagePath }}/header_logo.png" alt="Logomarca FIEB" class="header-logo" /></a>
+
+    <span class="spacer"></span>
+
+    <h1 class="app-title">{{ appTitle }}</h1>
+
+    <span class="spacer"></span>
+
+    <div class="toggle-usermenu">
+      <button *ngIf="!isLoginPage && login" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <span>Olá <b>{{ login.nome }}</b>.</span>
+        <mat-icon>person</mat-icon>
+      </button>
+    </div>
+
+    <mat-menu #menu="matMenu" class="user-menu">
+      <button mat-menu-item (click)="sair()">
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+      </button>
+    </mat-menu>
+
+    <button mat-icon-button class="favorite-panel" *ngIf="mostraFavorito" (click)="toggleFavorite()">
+      <mat-icon *ngIf="!panelFavorite" class="">favorite_outline</mat-icon>
+      <mat-icon *ngIf="panelFavorite" class="">favorite</mat-icon>
+    </button>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+<app-nav></app-nav>

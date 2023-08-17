@@ -1,0 +1,92 @@
+<h1 mat-dialog-title>{{ dataModal.modalTitle }}</h1>
+<form [formGroup]="usuarioForm">
+
+  <mat-dialog-content>
+
+    <div *ngIf="(dataModal.action === 'add' || dataModal.action === 'update') && !regStatus"><!-- adicionar módulo -->
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do Usuário</mat-label>
+        <input formControlName="nome" matInput placeholder="Ex: Nome Usuário ">
+        <span *ngIf="usuarioForm.controls['nome'].invalid && (usuarioForm.controls['nome'].dirty || usuarioForm.controls['nome'].touched)" class="error-alert">
+          <span *ngIf="usuarioForm.controls['nome'].errors.required">
+            Informe o nome
+          </span>
+        </span>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="input-inline2">
+        <mat-label>Login</mat-label>
+        <input formControlName="login" matInput placeholder="Ex: meu.nome">
+        <span *ngIf="usuarioForm.controls['login'].invalid && (usuarioForm.controls['login'].dirty || usuarioForm.controls['login'].touched)" class="error-alert">
+          <span *ngIf="usuarioForm.controls['login'].errors.required">
+            Informe o login
+          </span>
+        </span>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-inline2">
+        <mat-label>Perfil</mat-label>
+        <mat-select formControlName="perfil" (ngModelChange)="changePerfil($event)">
+          <mat-option [value]="3" >Usuário</mat-option>
+          <mat-option [value]="2" [disabled]="perfilLogin == 2">Gestor</mat-option>
+          <mat-option [value]="1" [disabled]="perfilLogin == 2">Administrador</mat-option>
+        </mat-select>
+        <span *ngIf="usuarioForm.controls['perfil'].invalid && (usuarioForm.controls['perfil'].dirty || usuarioForm.controls['perfil'].touched)" class="error-alert">
+          <span *ngIf="usuarioForm.controls['perfil'].errors.required">
+            Informe o perfil
+          </span>
+        </span>
+      </mat-form-field>
+
+      <div class="container-permissoes" *ngIf=" dataModal.action === 'update' ">
+
+        <mat-form-field appearance="outline" class="input-inline2">
+          <mat-label>Temas</mat-label>
+          <mat-select formControlName="tema" *ngIf="perfilCadastro == 2" [(ngModel)]="permissionsGestorlList" (ngModelChange)="changeTemaGestor($event)" multiple><!-- Aparece para Gestor(2) -->
+            <mat-option *ngFor="let tema of selectTema" [value]="tema.id">{{ tema.modulo[0].nome }} - {{ tema.nome }}</mat-option>
+          </mat-select>
+          <mat-select formControlName="tema" *ngIf="perfilCadastro != 2" (ngModelChange)="changeTema($event)"><!-- Aparece para Usuario(3) e Administrador(1) -->
+            <mat-option *ngFor="let tema of selectTema" [value]="tema.id">{{ tema.modulo[0].nome }} - {{ tema.nome }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="container-selects" *ngIf=" perfilCadastro != 2 "><!-- Aparece para Usuario(1) e Administrador(3) -->
+          <div class="paineis-disponiveis">
+            <small>{{ countPanels }} painéis disponíveis.</small>
+            <select class="permissions-select" id="panelsSelect" (change)="setFormPainel($event)" formControlName="painel" multiple>
+              <option *ngFor="let panel of panelList" [value]="panel.idPainel">{{panel.nome}}</option>
+            </select>
+          </div>
+
+          <div class="permissions-panel">
+            <button mat-fab color="primary" aria-label="Adicionar permissão" (click)="moveItem('left')">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+            <button mat-fab color="warn" aria-label="Adicionar permissão" (click)="moveItem('right')">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+          </div>
+
+          <div class="paineis-selecionados">
+            <small>{{ countPanelsSelected }} painéis selecionados.</small>
+            <select class="permissions-select" id="permissionSelect" (change)="setFormPermissao($event)" formControlName="painelPermissao" multiple>
+              <option *ngFor="let permission of permissionslList" [value]="permission.idPainel">{{permission.nome}}</option>
+            </select>
+          </div>
+        </div>
+        <span *ngIf="action" class="md-caption mat-subheading-1" [ngClass]="actionTerm == 'removida' ? 'color-red' : 'color-green'">Permissão {{actionTerm}}.</span>
+
+      </div>
+
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions *ngIf="dataModal.action === 'add' || dataModal.action === 'update'">
+    <button mat-flat-button mat-dialog-close="close" class="danger-bt">Cancelar</button>
+    <button mat-flat-button (click)="setUsuario()" class="primary-bt" [disabled]="!usuarioForm.valid || regStatus">Salvar</button>
+  </mat-dialog-actions>
+
+</form>
+
